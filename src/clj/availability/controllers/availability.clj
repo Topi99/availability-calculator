@@ -2,6 +2,7 @@
 
 ;; parse-int: string -> int
 (defn parse-int [s]
+  "Parses string to int"
   (Integer. (re-find  #"\d+" s )))
 
 (defn round
@@ -28,7 +29,7 @@
 (defn helper-to-decimal-hour [inp-hour hours minutes now-minutes]
   "Helper function to make tail recursion"
   (if (empty? inp-hour)
-    (+ (parse-int hours) (/ (parse-int minutes) 60)) ;; sum minutes and hours
+    (round 3 (+ (parse-int hours) (/ (parse-int minutes) 60))) ;; sum minutes and hours
     (if (= (first inp-hour) \:) ;; if found ":", then look for munutes
       (helper-to-decimal-hour (rest inp-hour) hours minutes true)
       (if now-minutes
@@ -41,23 +42,35 @@
   "Returns a given hour in HH:MM string format to its decimal equivalent"
   (helper-to-decimal-hour (seq hour) "" "" false))
 
+(defn to-string-hour [hour]
+  "Returns a given hour in decimal values to its HH:MM equivalent"
+  (let [hours (int hour) str-format "%02d"]
+    (str (format str-format hours)
+         (str ":" (format str-format (int (round 2 (* (- hour hours) 60))))))))
+
 (defn helper-get-available [start end calendar result]
-  (cond
-    (and (not (empty? (first calendar))) (empty? (rest calendar))) ;; last event
-      (my-append result [(first (rest (first calendar))) end]) ;; return the result
-    (<= (first (first calendar)) start) ;; in case the event overlaps the past event
-      (helper-get-available
-        (first (rest (first calendar)))
-        end
-        (rest calendar)
-        result)
-    :else (helper-get-available
-            (first (rest (first calendar))) ;; new start hour
-            end
-            (rest calendar) ;; new calendar
-            (my-append result [start (first (first calendar))])))) ;; new result
+  "Helper function for get-available to make it tail revursive"
+  (let [next-event-start (first (first calendar))
+        next-event-end (first (rest (first calendar)))]
+    (cond
+      (and (not (empty? (first calendar))) (empty? (rest calendar))) ;; last event
+        (my-append result [(to-string-hour next-event-end) (to-string-hour end)]) ;; return the result
+      (<= next-event-start start) ;; in case the event overlaps the past event
+        (helper-get-available
+          next-event-end
+          end
+          (rest calendar)
+          result)
+      :else
+        (helper-get-available
+          next-event-end ;; new start hour
+          end
+          (rest calendar) ;; new calendar
+          (my-append result
+            [(to-string-hour start) (to-string-hour next-event-start)]))))) ;; new result
 
 (defn get-available [start end calendar]
+  "Returns the available hours for a given bussy calendar"
   (helper-get-available start end calendar []))
 
 ;; get-availability: {{{:calendar vector, :day-starts string, :day-ends string}}} -> map

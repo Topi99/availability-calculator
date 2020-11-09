@@ -52,7 +52,7 @@
     {:get (constantly (ok {:message "pong"}))}]
 
    ["/availability"
-    {:get {:summary "gets the availability of a given calendar"
+    {:post {:summary "gets the availability of a given calendar"
            :parameters {:body {:calendar vector?
                                :day-starts string?
                                :day-ends string?}}
