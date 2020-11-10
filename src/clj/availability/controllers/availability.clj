@@ -49,12 +49,12 @@
          (str ":" (format str-format (int (round 2 (* (- hour hours) 60))))))))
 
 (defn helper-get-available [start end calendar result]
-  "Helper function for get-available to make it tail revursive"
+  "Helper function for get-available to make it tail recursive"
   (let [next-event-start (first (first calendar))
         next-event-end (first (rest (first calendar)))]
     (cond
-      (and (not (empty? (first calendar))) (empty? (rest calendar))) ;; last event
-        (my-append result [(to-string-hour next-event-end) (to-string-hour end)]) ;; return the result
+      (empty? calendar) ;; last event
+        (my-append result [(to-string-hour start) (to-string-hour end)]) ;; return the result
       (<= next-event-start start) ;; in case the event overlaps the past event
         (helper-get-available
           next-event-end
