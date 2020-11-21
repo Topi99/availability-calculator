@@ -35,4 +35,4 @@ To test the web application, run:
 
 Copyright © 2020 Topiltzin Hernández
 
-Distributed under the GNU General Public License either version 3.0.
+Distributed under the GNU General Public License version 3.0.
