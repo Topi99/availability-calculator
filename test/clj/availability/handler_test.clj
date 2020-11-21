@@ -18,7 +18,6 @@
     (f)))
 
 (deftest test-app
-
   (testing "not-found route"
     (let [response ((app) (request :get "/invalid"))]
       (is (= 404 (:status response)))))
@@ -26,8 +25,33 @@
   (testing "services"
     (testing "success availability"
       (let [response ((app) (-> (request :post "/api/availability")
-                               (json-body {
+                                (json-body {
                                  :day-starts "08:00",
-                                 :calendar [["10:30" "11:25"]]
-                                 :day-ends "18:00"})))]
-        (is (= 200 (:status response)))))))
+                                 :calendar [["10:30", "11:25"]]
+                                 :day-ends "18:00"
+                                })))]
+        (is (= 200 (:status response)))
+        (is (= {:available [["08:00", "10:30"], ["11:25", "18:00"]], :with-after-office-hours false}
+               (m/decode-response-body response)))))
+
+    (testing "only two available slots when two events overlap"
+      (let [response ((app) (-> (request :post "/api/availability")
+                                (json-body {
+                                 :day-starts "08:00",
+                                 :calendar [["10:30", "11:25"], ["11:10", "12:30"]],
+                                 :day-ends "18:00"
+                                })))]
+        (is (= 200 (:status response)))
+        (is (= {:available [["08:00", "10:30"], ["12:30", "18:00"]], :with-after-office-hours false}
+               (m/decode-response-body response)))))
+
+    (testing "last event finishes later than initial day-ends"
+      (let [response ((app) (-> (request :post "/api/availability")
+                                (json-body {
+                                 :day-starts "08:00",
+                                 :calendar [["10:30", "11:25"], ["17:30", "19:25"]],
+                                 :day-ends "18:00"
+                                })))]
+        (is (= 200 (:status response)))
+        (is (= {:available [["08:00", "10:30"], ["11:25", "17:30"]], :with-after-office-hours true}
+               (m/decode-response-body response)))))))
