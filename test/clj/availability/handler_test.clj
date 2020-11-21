@@ -31,7 +31,7 @@
                                  :day-ends "18:00"
                                 })))]
         (is (= 200 (:status response)))
-        (is (= {:available [["08:00", "10:30"], ["11:25", "18:00"]], :with-after-office-hours false}
+        (is (= {:available [["08:00", "10:30"], ["11:25", "18:00"]]}
                (m/decode-response-body response)))))
 
     (testing "only two available slots when two events overlap"
@@ -42,7 +42,7 @@
                                  :day-ends "18:00"
                                 })))]
         (is (= 200 (:status response)))
-        (is (= {:available [["08:00", "10:30"], ["12:30", "18:00"]], :with-after-office-hours false}
+        (is (= {:available [["08:00", "10:30"], ["12:30", "18:00"]]}
                (m/decode-response-body response)))))
 
     (testing "last event finishes later than initial day-ends"
@@ -53,5 +53,5 @@
                                  :day-ends "18:00"
                                 })))]
         (is (= 200 (:status response)))
-        (is (= {:available [["08:00", "10:30"], ["11:25", "17:30"]], :with-after-office-hours true}
+        (is (= {:available [["08:00", "10:30"], ["11:25", "17:30"]]}
                (m/decode-response-body response)))))))

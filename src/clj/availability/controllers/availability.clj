@@ -51,8 +51,11 @@
 (defn helper-get-available [start end calendar result]
   "Helper function for get-available to make it tail recursive"
   (let [next-event-start (first (first calendar))
-        next-event-end (first (rest (first calendar)))]
+        next-event-end (first (rest (first calendar)))
+        _ (println {:next-event-end next-event-end :end end})]
     (cond
+      (>= start end)
+        result
       (empty? calendar) ;; last event
         (my-append result [(to-string-hour start) (to-string-hour end)]) ;; return the result
       (<= next-event-start start) ;; in case the event overlaps the past event
