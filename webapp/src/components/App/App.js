@@ -27,6 +27,7 @@ const App = () => {
         available={available}
         starts={dayStarts}
         ends={dayEnds}
+        setBusy={setBusy}
       />
       <button onClick={() => getAvailability()}>Get</button>
     </AppContainer>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { toDecimal, toString } from '../../util/hour';
 import { CalendarContainer, CalendarSlot } from './Calendar.styled';
 
 /**
@@ -17,31 +18,11 @@ import { CalendarContainer, CalendarSlot } from './Calendar.styled';
  * @param {string} props.starts 
  * @param {string} props.ends
  */
-const Calendar = ({busy, available, starts, ends}) => {
+const Calendar = ({busy, available, starts, ends, setBusy}) => {
   /**
    * @type {[[Slot], (slots: [Slot]) => void]} slots state
    */
   const [slots, setSlots] = useState([]);
-
-  /**
-   * Parses an hour in HH:MM format to decimal.
-   * @param {string} hour with HH:MM format
-   */
-  const toDecimal = (hour) => {
-    const [hours, minutes] = hour.split(":");
-    return parseInt(hours) + parseInt(minutes) / 60;
-  };
-
-  /**
-   * Parses an hour from decimal to HH:MM format.
-   * @param {number} hour 
-   * @returns {string} Hour in HH:MM format
-   */
-  const toString = (hour) => {
-    const hours = parseInt(hour);
-    const minutes = hour - hours;
-    return `${("0" + hours).slice(-2)}:${("0" + minutes * 60).slice(-2)}`
-  };
 
   /**
    * Returns new slots
