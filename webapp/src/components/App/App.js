@@ -5,7 +5,7 @@ import { AppContainer } from './App.styled';
 const URL = "http://localhost:8080/api/availability"
 
 const App = () => {
-  const [calendar, setCalendar] = useState([["10:30", "11:30"]]);
+  const [calendar, setCalendar] = useState([]);
   const [dayStarts, setDayStarts] = useState("08:00");
   const [dayEnds, setDayEnds] = useState("18:00");
 
