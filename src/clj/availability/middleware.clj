@@ -30,6 +30,16 @@
        {:status 403
         :title "Invalid anti-forgery token"})}))
 
+(defn wrap-cors
+  "Wrap the server response in a Control-Allow-Origin Header to
+  allow connections from the web app."
+  [handler]
+  (fn [request]
+    (let [response (handler request)]
+      (-> response
+          (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+          (assoc-in [:headers "Access-Control-Allow-Headers"] "content-type")
+          (assoc-in [:headers "Access-Control-Allow-Methods"] "*")))))
 
 (defn wrap-formats [handler]
   (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
@@ -40,8 +50,9 @@
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
-      wrap-flash
-      (wrap-session {:cookie-attrs {:http-only true}})
+      ; wrap-flash
+      ; (wrap-session {:cookie-attrs {:http-only true}})
+      (wrap-cors)
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
