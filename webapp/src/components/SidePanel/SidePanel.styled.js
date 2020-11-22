@@ -21,7 +21,8 @@ export const Button = styled.button`
   font-weight: bold;
   font-size: 1rem;
   padding: 7px;
-  color: #0057a0;
+  margin: 5px 0;
+  color: ${({color}) => color ? color : "#0057a0"};
 `;
 
 export const InputContainer = styled.div`
