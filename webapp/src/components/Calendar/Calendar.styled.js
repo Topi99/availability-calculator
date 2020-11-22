@@ -11,6 +11,9 @@ export const CalendarContainer = styled.article`
   margin: auto;
   background-color: #1b1b1b;
   border-radius: 25px;
-  /* border: 1px solid #151515; */
-  box-shadow: 0 0 5px #151515bb;
+  box-shadow: 0 3px 5px #15151575;
+`;
+
+export const CalendarSlot = styled.div`
+  border: 1px solid #151515;
 `;

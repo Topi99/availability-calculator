@@ -6,7 +6,8 @@ import { AppContainer } from './App.styled';
 const URL = "http://localhost:8080/api/availability"
 
 const App = () => {
-  const [calendar, setCalendar] = useState([]);
+  const [busy, setBusy] = useState([]);
+  const [available, setAvailable] = useState([]);
   const [dayStarts, setDayStarts] = useState("08:00");
   const [dayEnds, setDayEnds] = useState("18:00");
 
@@ -14,14 +15,14 @@ const App = () => {
     const response = await axios.post(URL, {
       "day-starts": dayStarts,
       "day-ends": dayEnds,
-      calendar: calendar
-    })
-    console.log(response);
+      calendar: busy
+    });
+    setAvailable(response.data.available);
   }
 
   return (
     <AppContainer>
-      <Calendar />
+      <Calendar busy={busy} available={available} />
       <button onClick={() => getAvailability()}>Get</button>
     </AppContainer>
   );
