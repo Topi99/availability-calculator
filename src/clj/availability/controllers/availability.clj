@@ -30,7 +30,7 @@
   "Helper function to make tail recursion"
   (if (empty? inp-hour)
     (if (or (>= (parse-int hours) 24) (>= (parse-int minutes) 60))
-      (throw (ex-info "Invalid hour" {:status-code 400}))
+      (throw (ex-info "Invalid hour" {:status-code 400 :cause (str hours (str ":" minutes))}))
       (round 3 (+ (parse-int hours) (/ (parse-int minutes) 60)))) ;; sum minutes and hours
     (if (= (first inp-hour) \:) ;; if found ":", then look for munutes
       (helper-to-decimal-hour (rest inp-hour) hours minutes true)
@@ -91,4 +91,4 @@
       (case
         (= 400 (-> e ex-data :status-code))
           {:status 400
-          :body {:message (or (ex-message e) "Invalid request")}}))))
+          :body {:message (or (ex-message e) "Invalid request") :cause (-> e ex-data :cause)}}))))

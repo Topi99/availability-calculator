@@ -31,6 +31,7 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.8.2"]
                  [ring/ring-defaults "0.3.2"]
+                 [ring/ring-json "0.5.0"]
                  [selmer "1.12.31"]
                  [eftest "0.5.9"]]
 

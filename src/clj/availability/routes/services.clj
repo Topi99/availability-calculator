@@ -41,5 +41,5 @@
                                :day-starts string?
                                :day-ends string?}}
            :responses {200 {:body {:available seq?}}
-                       400 {:body {:message string?}}}
+                       400 {:body {:message string? :cause string?}}}
            :handler get-availability}}]])
