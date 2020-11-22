@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Calendar from '../Calendar';
 import { AppContainer } from './App.styled';
 
 const URL = "http://localhost:8080/api/availability"
@@ -20,6 +21,7 @@ const App = () => {
 
   return (
     <AppContainer>
+      <Calendar />
       <button onClick={() => getAvailability()}>Get</button>
     </AppContainer>
   );
