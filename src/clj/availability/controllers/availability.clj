@@ -29,7 +29,9 @@
 (defn helper-to-decimal-hour [inp-hour hours minutes now-minutes]
   "Helper function to make tail recursion"
   (if (empty? inp-hour)
-    (round 3 (+ (parse-int hours) (/ (parse-int minutes) 60))) ;; sum minutes and hours
+    (if (or (>= (parse-int hours) 24) (>= (parse-int minutes) 60))
+      (throw (ex-info "Invalid hour" {:status-code 400}))
+      (round 3 (+ (parse-int hours) (/ (parse-int minutes) 60)))) ;; sum minutes and hours
     (if (= (first inp-hour) \:) ;; if found ":", then look for munutes
       (helper-to-decimal-hour (rest inp-hour) hours minutes true)
       (if now-minutes
@@ -51,8 +53,7 @@
 (defn helper-get-available [start end calendar result]
   "Helper function for get-available to make it tail recursive"
   (let [next-event-start (first (first calendar))
-        next-event-end (first (rest (first calendar)))
-        _ (println {:next-event-end next-event-end :end end})]
+        next-event-end (first (rest (first calendar)))]
     (cond
       (>= start end)
         result
@@ -79,8 +80,15 @@
 ;; get-availability: {{{:calendar vector, :day-starts string, :day-ends string}}} -> map
 (defn get-availability [{{{:keys [calendar day-starts day-ends]} :body} :parameters}]
   "Main function to get availability"
-  {:status 200
-   :body {:available (get-available
-                        (parse-int day-starts)
-                        (parse-int day-ends)
-                        (my-map (fn [event] (my-map to-decimal-hour event)) calendar))}})
+  (try
+    {:status 200
+     :body {:available
+              (get-available
+                (parse-int day-starts)
+                (parse-int day-ends)
+                (my-map (fn [event] (my-map to-decimal-hour event)) calendar))}}
+    (catch clojure.lang.ExceptionInfo e
+      (case
+        (= 400 (-> e ex-data :status-code))
+          {:status 400
+          :body {:message (or (ex-message e) "Invalid request")}}))))

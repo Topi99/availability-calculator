@@ -54,4 +54,15 @@
                                 })))]
         (is (= 200 (:status response)))
         (is (= {:available [["08:00", "10:30"], ["11:25", "17:30"]]}
-               (m/decode-response-body response)))))))
+               (m/decode-response-body response)))))
+
+    (testing "last event finishes later than initial day-ends and overlaps"
+      (let [response ((app) (-> (request :post "/api/availability")
+                                (json-body {
+                                :day-starts "08:00",
+                                :calendar [["10:30", "11:25"], ["17:30", "19:25"]],
+                                :day-ends "18:00"
+                                })))]
+        (is (= 200 (:status response)))
+        (is (= {:available [["08:00", "10:30"], ["11:25", "17:30"]]}
+              (m/decode-response-body response)))))))

@@ -40,5 +40,6 @@
            :parameters {:body {:calendar vector?
                                :day-starts string?
                                :day-ends string?}}
-           :responses {200 {:body {:available seq?}}}
+           :responses {200 {:body {:available seq?}}
+                       400 {:body {:message string?}}}
            :handler get-availability}}]])
