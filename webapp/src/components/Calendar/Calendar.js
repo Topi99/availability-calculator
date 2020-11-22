@@ -65,7 +65,6 @@ const Calendar = ({busy, available, starts, ends, setBusy}) => {
   useEffect(() => {
     const computatedSlots = getSlots(starts, ends);
     if (available[0]) {
-      console.log("enters");
       const slotsWithAvailability = computatedSlots.map(slot => ({
         state: isSlotAvailable(available, slot, starts, ends)
           ? "available"

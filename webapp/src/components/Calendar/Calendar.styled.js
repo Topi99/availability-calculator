@@ -9,23 +9,26 @@ export const CalendarContainer = styled.article`
   left: 0;
   right: 0;
   margin: auto;
-  background-color: #1b1b1b;
-  border-radius: 25px;
-  box-shadow: 0 3px 5px #15151575;
+  background-color: #f6fdff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
+              0 0px 3px rgba(0, 0, 0, 0.07);
   overflow-y: scroll;
 `;
 
-const getColor = (state) => {
+const getBgColor = (state) => {
   if (state === "available") {
-    return "#335d33";
+    return "#b7f7b7";
   } else if (state === "busy") {
-    return "#501111";
+    return "#fd6d6d";
   }
   return "#00000000";
 }
 
 export const CalendarSlot = styled.div`
-  border-bottom: 1px solid #151515;
+  border-bottom: 1px solid #e2e2e2;
   padding: 10px;
-  background-color: ${({state}) => getColor(state)}
+  color: #464646;
+  background-color: ${({state}) => getBgColor(state)};
+  cursor: default;
 `;
