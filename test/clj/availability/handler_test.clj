@@ -70,9 +70,9 @@
     (testing "last event finishes later than initial day-ends and overlaps"
       (let [response ((app) (-> (request :post "/api/availability")
                                 (json-body {
-                                :day-starts "08:00",
-                                :calendar [["100:30", "11:25"], ["17:30", "19:25"]],
-                                :day-ends "18:00"
+                                 :day-starts "08:00",
+                                 :calendar [["100:30", "11:25"], ["17:30", "19:25"]],
+                                 :day-ends "18:00"
                                 })
                                 (content-type "application/json")))]
         (is (= 400 (:status response)))))))
