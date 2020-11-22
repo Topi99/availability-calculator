@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Calendar from '../Calendar';
 import { AppContainer } from './App.styled';
@@ -22,7 +22,12 @@ const App = () => {
 
   return (
     <AppContainer>
-      <Calendar busy={busy} available={available} />
+      <Calendar
+        busy={busy}
+        available={available}
+        starts={dayStarts}
+        ends={dayEnds}
+      />
       <button onClick={() => getAvailability()}>Get</button>
     </AppContainer>
   );
