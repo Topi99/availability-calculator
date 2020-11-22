@@ -2,34 +2,64 @@ import { useState } from "react";
 import { Button, InputContainer, InputWrap, SidePanelContainer } from "./SidePanel.styled";
 
 const SidePanel = ({getAvailability, dayEnds, dayStarts}) => {
-  const [newBusyHours, setNewBusyHours] = useState(dayStarts);
-  const [newBusyMinutes, setNewBusyMinutes] = useState(0);
+  const [newBusyHoursStarts, setNewBusyHoursStarts] = useState(dayStarts);
+  const [newBusyMinutesStarts, setNewBusyMinutesStarts] = useState(0);
+  const [newBusyHoursEnds, setNewBusyHoursEnds] = useState(dayStarts);
+  const [newBusyMinutesEnds, setNewBusyMinutesEnds] = useState(0);
 
   return(
     <SidePanelContainer>
+      <p>Starts:</p>
       <InputContainer>
         <InputWrap>
-          <label for="hours-input">Hour</label>
+          <label for="hours-input-starts">Hour</label>
           <input
-            id="hours-input"
+            id="hours-input-starts"
             type="number"
-            value={newBusyHours}
+            value={newBusyHoursStarts}
             min={dayStarts}
             max={dayEnds}
             step={1}
-            onChange={(event) => setNewBusyHours(event.target.value)}
+            onChange={(event) => setNewBusyHoursStarts(event.target.value)}
           />
         </InputWrap>
         <InputWrap>
-          <label for="minutes-input">Minutes</label>
+          <label for="minutes-input-starts">Minutes</label>
           <input
-            id="minutes-input"
+            id="minutes-input-starts"
             type="number"
-            value={newBusyMinutes}
+            value={newBusyMinutesStarts}
             min={0}
             max={59}
             step={15}
-            onChange={(event) => setNewBusyMinutes(event.target.value)}
+            onChange={(event) => setNewBusyMinutesStarts(event.target.value)}
+          />
+        </InputWrap>
+      </InputContainer>
+      <p>Ends:</p>
+      <InputContainer>
+        <InputWrap>
+          <label for="hours-input-ends">Hour</label>
+          <input
+            id="hours-input-ends"
+            type="number"
+            value={newBusyHoursEnds}
+            min={dayStarts}
+            max={dayEnds}
+            step={1}
+            onChange={(event) => setNewBusyHoursEnds(event.target.value)}
+          />
+        </InputWrap>
+        <InputWrap>
+          <label for="minutes-input-ends">Minutes</label>
+          <input
+            id="minutes-input-ends"
+            type="number"
+            value={newBusyMinutesEnds}
+            min={0}
+            max={59}
+            step={15}
+            onChange={(event) => setNewBusyMinutesEnds(event.target.value)}
           />
         </InputWrap>
       </InputContainer>

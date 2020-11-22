@@ -7,8 +7,9 @@ export const AppContainer = styled.section`
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
-  padding: 0 15vw;
+  padding: 10vh 15vw;
+  padding-bottom: 0;
   box-sizing: border-box;
 `;

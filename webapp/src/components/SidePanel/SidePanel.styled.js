@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const SidePanelContainer = styled.section`
   width: 70%;
-  height: 90%;
   background-color: #f6fdff;
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
@@ -34,7 +33,7 @@ export const InputContainer = styled.div`
 export const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
 
   input {
     border: 1px solid rgb(170, 170, 170);
@@ -42,5 +41,9 @@ export const InputWrap = styled.div`
     padding: 5px 10px;
     font-size: 1rem;
     box-sizing: border-box;
+  }
+
+  label {
+    padding: 5px 0;
   }
 `;
