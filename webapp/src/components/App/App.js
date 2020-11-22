@@ -14,11 +14,12 @@ const App = () => {
   const [dayEnds, setDayEnds] = useState(18);
 
   const getAvailability = async () => {
-    const response = await axios.post(URL, {
+    const body = {
       "day-starts": dayStarts,
       "day-ends": dayEnds,
       calendar: busy
-    });
+    };
+    const response = await axios.post(URL, body);
     setAvailable(response.data.available);
   }
 
@@ -33,6 +34,8 @@ const App = () => {
       />
       <SidePanel
         getAvailability={getAvailability}
+        setBusy={setBusy}
+        busy={busy}
         dayStarts={parseInt(dayStarts)}
         dayEnds={parseInt(dayEnds)}
       >
