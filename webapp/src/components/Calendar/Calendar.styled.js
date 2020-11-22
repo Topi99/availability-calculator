@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 
 export const CalendarContainer = styled.article`
-  width: 25%;
+  width: 70%;
   height: 90%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
   background-color: #f6fdff;
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1),
@@ -31,4 +25,5 @@ export const CalendarSlot = styled.div`
   color: #464646;
   background-color: ${({state}) => getBgColor(state)};
   cursor: default;
+  text-align: center;
 `;
