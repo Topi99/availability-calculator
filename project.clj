@@ -45,6 +45,8 @@
 
   :plugins [[lein-eftest "0.5.9"]] 
 
+  :aliases {"run-web" ["ls"]}
+
   :profiles
   {:uberjar {:omit-source true
              :aot :all
