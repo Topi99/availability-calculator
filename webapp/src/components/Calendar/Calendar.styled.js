@@ -17,10 +17,10 @@ const getBgColor = (state) => {
     return "#fd6d6d";
   }
   return "#00000000";
-}
+};
 
 export const CalendarSlot = styled.div`
-  border-bottom: 1px solid #e2e2e2;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.25);
   padding: 10px;
   color: #464646;
   background-color: ${({state}) => getBgColor(state)};

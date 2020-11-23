@@ -1,5 +1,5 @@
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toString } from "../../util/hour";
 import { Button, InputContainer, InputWrap, SidePanelContainer } from "./SidePanel.styled";
 
@@ -45,11 +45,11 @@ const SidePanel = ({
 
     const newBusy = [newSlot, ...busy].sort();
     setBusy(newBusy);
-    enqueueSnackbar("New busy hours added", {
-      variant: "success",
-      autoHideDuration: 3000,
-    });
   };
+
+  useEffect(() => {
+    getAvailability();
+  }, [getAvailability]);
 
   return(
     <SidePanelContainer>
@@ -162,7 +162,6 @@ const SidePanel = ({
         </InputWrap>
       </InputContainer>
       <Button onClick={handleAdd}>Add new busy time</Button>
-      <Button onClick={getAvailability}>Get Availability</Button>
     </SidePanelContainer>
   );
 };

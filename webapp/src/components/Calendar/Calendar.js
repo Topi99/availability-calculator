@@ -7,7 +7,7 @@ import { CalendarContainer, CalendarSlot } from './Calendar.styled';
  * @typedef {object} Slot
  * @property {string} starts
  * @property {string} ends
- * @property {"available"|"busy"|undefined} state
+ * @property {"available"|"busy"} state
  */
 
 /**
@@ -59,21 +59,33 @@ const Calendar = ({busy, available, starts, ends, setBusy}) => {
    * @return {boolean}
    */
   const isSlotAvailable = (available, slot, starts, ends) => {
-
+    let isAvailable = false;
+    console.log("ent")
+    available.forEach((element) => {
+      if (slot.starts >= element[0] && slot.starts < element[1]) {
+        isAvailable = true;
+        return;
+      }
+    });
+    return isAvailable;
   };
 
   useEffect(() => {
     const computatedSlots = getSlots(starts, ends);
     if (available[0]) {
+      console.log("enters");
       const slotsWithAvailability = computatedSlots.map(slot => ({
         state: isSlotAvailable(available, slot, starts, ends)
           ? "available"
           : "busy",
-        ...slot,
+        starts: slot.starts,
+        ends: slot.ends,
       }));
+      console.log(slotsWithAvailability);
       setSlots(slotsWithAvailability);
       return;
     }
+    console.log("pases");
     setSlots(computatedSlots);
   }, [available, starts, ends, getSlots]);
 

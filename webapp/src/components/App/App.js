@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import Calendar from '../Calendar';
@@ -11,11 +11,11 @@ const URL = "http://localhost:8080/api/availability"
 const App = () => {
   const [busy, setBusy] = useState([]);
   const [available, setAvailable] = useState([]);
-  const [dayStarts, setDayStarts] = useState(8.5);
-  const [dayEnds, setDayEnds] = useState(18);
+  const [dayStarts] = useState(8);
+  const [dayEnds] = useState(18);
   const { enqueueSnackbar } = useSnackbar();
 
-  const getAvailability = async () => {
+  const getAvailability = useCallback(async () => {
     const body = {
       "day-starts": toString(dayStarts),
       "day-ends": toString(dayEnds),
@@ -34,7 +34,7 @@ const App = () => {
         autoHideDuration: 3000,
       });
     }
-  }
+  }, [busy, dayEnds, dayStarts, enqueueSnackbar]);
 
   return (
     <AppContainer>
