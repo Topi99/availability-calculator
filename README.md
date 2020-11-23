@@ -30,7 +30,7 @@ Even though there are many other tools to be ready for use in a public web site 
 
 ## Solution
 
-As seen above in [Context of the problem](#context-of-the-problem)
+As seen above in [Context of the problem](#context-of-the-problem), staring at a computer screen may cause many chronic issues in the human health. This is why I came up with this little acupuncture (idea or prototipe to make a small change), to help others with the same problem of time management. In this project, I developed a simple availaiblity calculator in Clojure, using functional programming, and a visual web application in ReactJS, also using functional programming in the great majority of the code base. 
 
 [return to the top.](#table-of-contents)
 
