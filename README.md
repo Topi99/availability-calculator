@@ -4,7 +4,6 @@ An open source service to calculate the daily availability based on a calendar.
 
 ## Table of Contents
 
-<!--ts-->
 1. [Availability Calculator](#availability-calculator)
 1. [Table of Contents](#table-of-contents)
 1. [Context of the problem](#context-of-the-problem)
