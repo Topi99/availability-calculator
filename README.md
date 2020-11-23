@@ -13,7 +13,7 @@ An open source service to calculate the daily availability based on an agenda.
     2. [Structure of the code](#structure-of-the-code)
 5. [Prerequisites](#prerequisites)
 6. [Development workflow](#development-workflow)
-    1. [Installing dependencies](#installing-dependencies)
+    1. [Installing dependencies](#install-dependencies)
     2. [Running](#running)
     3. [Testing](#testing)
 7. [License](#license)
