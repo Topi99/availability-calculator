@@ -87,7 +87,7 @@ Then, start the web application:
 
 [return to the top.](#table-of-contents)
 
-## Testing
+### Testing
 
 To test the web server, run:
 
