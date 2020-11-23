@@ -1,4 +1,4 @@
-all: install start-server start-web test
+all: install start-server start-web test-app
 
 install:
 	cd webapp && yarn install
@@ -9,5 +9,5 @@ start-server:
 start-web:
 	cd webapp && yarn start
 
-test:
+test-app:
 	lein eftest

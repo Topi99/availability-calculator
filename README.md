@@ -77,11 +77,11 @@ This will install frontend dependencies. There is no need to install backend dep
 
 ### Running
 
-To start a web server for the application, run:
+First, start the web server for the application:
 
     make start-server 
 
-To start the web application, run:
+Then, start the web application:
 
     make start-web
 
@@ -91,7 +91,69 @@ To start the web application, run:
 
 To test the web server, run:
 
-    make test
+    make test-app
+
+I'll describe the testing, since sometimes the process is tricky.
+
+When run the command above, you'll get something like this:
+
+![test result](resources/img/make-test-app.png)
+
+As you can see in the image, 10 assertions where made. Feel free to add more tests if you find a missing escenario. The list of cases:
+
+* `success availability` - When all the inputs are filled and valid, the result should be succesful.
+* `only two available slots when two events overlap` - When in the input are only two events, that overlap to each other, the result should be a list of two elements. For example: when the input is:
+
+```clojure
+{
+    :day-starts "08:00",
+    :calendar [["10:30", "11:25"], ["11:10", "12:30"]],
+    :day-ends "18:00"
+}
+```
+
+The result should be:
+
+```clojure
+{
+    :available [["08:00", "10:30"], ["12:30", "18:00"]]
+}
+```
+* `last event finishes later than day-ends hour` - Take the following input for example:
+
+```clojure
+{
+    :day-starts "08:00",
+    :calendar [["10:30", "11:25"], ["17:30", "19:25"]],
+    :day-ends "18:00"
+}
+```
+
+As you can see, the last event finished later than the end of day hour, then the result should be:
+
+```clojure
+{
+    :available [["08:00", "10:30"], ["11:25", "17:30"]]
+}
+```
+
+* `last event finishes later than initial day-ends and overlaps` - Both overlaping and events after the day ends.
+
+```clojure
+{
+    :day-starts "08:00",
+    :calendar [["10:30", "18:25"], ["17:30", "19:25"]],
+    :day-ends "18:00"
+}
+```
+
+Should give:
+
+```clojure
+{
+    :available [["08:00", "10:30"]]
+}
+```
 
 [return to the top.](#table-of-contents)
 
