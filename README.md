@@ -12,9 +12,11 @@ An open source service to calculate the daily availability based on an agenda.
     1. [How it works](#how-it-works)
     2. [Structure of the code](#structure-of-the-code)
 5. [Prerequisites](#prerequisites)
-6. [Running](#running)
-7. [Testing](#testing)
-8. [License](#license)
+6. [Development workflow](#development-workflow)
+    1. [Installing dependencies](#installing-dependencies)
+    2. [Running](#running)
+    3. [Testing](#testing)
+7. [License](#license)
 
 ## Context of the problem
 
@@ -61,15 +63,27 @@ Optionally, you will need [NodeJS][2] 8.10 or above and [Yarn][3] 1.0 or above i
 
 [return to the top.](#table-of-contents)
 
-## Running
+## Development workflow
+
+To help (and give hints to future contributers for) the coding workflow, I included a super simple [makefile][9] with common tasks in the development of the project.
+
+### Install dependencies
+
+To install the dependencies, run:
+
+    make install
+
+This will install frontend dependencies. There is no need to install backend dependencies manually, since those are installed via `lein`, go to the next section.
+
+### Running
 
 To start a web server for the application, run:
 
-    lein run 
+    make start-server 
 
 To start the web application, run:
 
-    lein run-web
+    make start-web
 
 [return to the top.](#table-of-contents)
 
@@ -77,7 +91,7 @@ To start the web application, run:
 
 To test the web server, run:
 
-    lein eftest
+    make test
 
 [return to the top.](#table-of-contents)
 
@@ -97,3 +111,4 @@ Distributed under the GNU General Public License version 3.0.
 [6]: https://support.office.com/en-us/article/welcome-to-your-calendar-6fb9225d-9f9d-456d-8c81-8437bfcd3ebf
 [7]: https://zapier.com/blog/best-calendar-apps/
 [8]: https://www.carewellurgentcare.com/2018/07/19/the-effects-too-much-screen-time-has-on-your-health/
+[9]: https://www.gnu.org/software/make/manual/make.html#Introduction
