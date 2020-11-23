@@ -9,6 +9,8 @@ An open source service to calculate the daily availability based on an agenda.
 3. [Context of the problem](#context-of-the-problem)
     1. [Existing tools](#existing-tools)
 4. [Solution](#solution)
+    1. [How it works](#how-it-works)
+    2. [Structure of the code](#structure-of-the-code)
 5. [Prerequisites](#prerequisites)
 6. [Running](#running)
 7. [Testing](#testing)
@@ -31,6 +33,24 @@ Even though there are many other tools to be ready for use in a public web site 
 ## Solution
 
 As seen above in [Context of the problem](#context-of-the-problem), staring at a computer screen may cause many chronic issues in the human health. This is why I came up with this little acupuncture (idea or prototipe to make a small change), to help others with the same problem of time management. In this project, I developed a simple availaiblity calculator in Clojure, using functional programming, and a visual web application in ReactJS, also using functional programming in the great majority of the code base. 
+
+### How it works
+
+If you take a look at the source code, you will notice (among other things) that the first class citizens of the codebase are the lists and functions (given I used functional programming, that was something to wait for). The main collection of data is the `calendar` or `list` of `busy times`. That list of `busy times` is what the program takes into count for calculating the result, getting the complement for th `busy times`, getting `available times`.
+
+### Structure of the code
+
+The following directories and files are the most important in the project.
+
+* `src/clj/availability/`
+    * `controllers/availability.clj` - Is the main file for the backend, where all the *magic* happens.
+    * `middleware.clj` - Other important file, mainly for handling errors.
+* `test/clj/availability/`
+    * `handler_test.clj` - All the unit tests for the backend are placed in there.
+* `webapp/src/`
+    * `index.js` - Main entry point for the application.
+    * `components/App` - App component, where API calls are made.
+    * `components/Calendar` - Main component, all the styling, filtering and validations are made in here.
 
 [return to the top.](#table-of-contents)
 
